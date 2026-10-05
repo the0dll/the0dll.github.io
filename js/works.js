@@ -1,0 +1,340 @@
+/**
+ * the0dll' — Works: masonry-сетка + лайтбокс
+ */
+
+/* ==========================================================================
+   MASONRY — картинки в оригинальных пропорциях, одинаковый отступ,
+   каждая следующая встаёт в самую короткую колонку
+   ========================================================================== */
+class MasonryGrid {
+  constructor(container) {
+    this.container = container;
+    this.cards = Array.from(container.querySelectorAll('.stream-card'));
+    if (!this.cards.length) return;
+
+    this.cols = 0;
+    this.layout();
+    let t;
+    window.addEventListener('resize', () => {
+      clearTimeout(t);
+      t = setTimeout(() => this.layout(), 120);
+    });
+  }
+
+  columnCount() {
+    const w = window.innerWidth;
+    if (w <= 640) return 1;
+    if (w <= 1000) return 2;
+    return 3;
+  }
+
+  ratio(card) {
+    const img = card.querySelector('img');
+    const w = img.getAttribute('width') || img.naturalWidth || 1;
+    const h = img.getAttribute('height') || img.naturalHeight || 1;
+    return h / w;
+  }
+
+  layout() {
+    const n = this.columnCount();
+    if (n === this.cols) return;
+    this.cols = n;
+
+    this.container.innerHTML = '';
+    const columns = Array.from({ length: n }, () => {
+      const col = document.createElement('div');
+      col.className = 'stream-col';
+      this.container.appendChild(col);
+      return { el: col, h: 0 };
+    });
+
+    this.cards.forEach((card, i) => {
+      const shortest = columns.reduce((a, b) => (b.h < a.h ? b : a));
+      shortest.el.appendChild(card);
+      shortest.h += this.ratio(card);
+      card.style.setProperty('--d', `${(i % n) * 90}ms`);
+    });
+  }
+}
+
+/* ==========================================================================
+   LIGHTBOX — как на tddsash: страница остаётся видна под тёмной вуалью,
+   картинка по центру с отступами, справа сверху [ close ].
+   Открытие: картинка вылетает из миниатюры. Закрытие: плавное затухание на месте
+   (никакого «полёта назад», поэтому скролл ничего не ломает).
+   ========================================================================== */
+class Lightbox {
+  constructor() {
+    this.isOpen = false;
+    this.isAnimating = false;
+    this.build();
+    this.bind();
+  }
+
+  build() {
+    this.root = document.createElement('div');
+    this.root.className = 'lightbox';
+    this.root.setAttribute('aria-hidden', 'true');
+    this.root.innerHTML = `
+      <div class="lightbox-backdrop"></div>
+      <button type="button" class="lightbox-close" aria-label="Close">[ close ]</button>
+      <button type="button" class="lightbox-nav-btn lightbox-prev" aria-label="Previous image">←</button>
+      <button type="button" class="lightbox-nav-btn lightbox-next" aria-label="Next image">→</button>
+      <img class="lightbox-img" alt="">
+      <div class="lightbox-caption"></div>`;
+    document.body.appendChild(this.root);
+
+    this.backdrop = this.root.querySelector('.lightbox-backdrop');
+    this.closeBtn = this.root.querySelector('.lightbox-close');
+    this.prevBtn = this.root.querySelector('.lightbox-nav-btn.lightbox-prev');
+    this.nextBtn = this.root.querySelector('.lightbox-nav-btn.lightbox-next');
+    this.img = this.root.querySelector('.lightbox-img');
+    this.captionEl = this.root.querySelector('.lightbox-caption');
+  }
+
+  bind() {
+    this.closeBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      this.close();
+    });
+    this.backdrop.addEventListener('click', () => this.close());
+    this.img.addEventListener('click', (e) => {
+      e.stopPropagation();
+      this.close();
+    });
+
+    this.prevBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      this.prev();
+    });
+    this.nextBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      this.next();
+    });
+
+    window.addEventListener('keydown', (e) => {
+      if (!this.isOpen) return;
+      if (e.key === 'Escape') this.close();
+      else if (e.key === 'ArrowLeft') this.prev();
+      else if (e.key === 'ArrowRight') this.next();
+    });
+
+    window.addEventListener('resize', () => {
+      if (this.isOpen) {
+        const r = this.targetRect();
+        this.applyRect(r, false);
+        this.placeCaption(r);
+      }
+    });
+
+    // Работы из сетки
+    document.querySelectorAll('.stream-card').forEach((card) => {
+      card.addEventListener('click', () => {
+        const img = card.querySelector('img');
+        const title = card.querySelector('.stream-title')?.textContent || '';
+        const tag = card.querySelector('.stream-tag')?.textContent || '';
+        let gallery = [];
+        const raw = card.getAttribute('data-gallery');
+        if (raw) {
+          try {
+            gallery = JSON.parse(raw);
+          } catch (_) {
+            gallery = raw.split(',').map(s => s.trim());
+          }
+        }
+        this.open(img, title, tag, gallery);
+      });
+    });
+  }
+
+  targetRect() {
+    const vw = window.innerWidth, vh = window.innerHeight;
+    const padX = vw <= 640 ? 20 : Math.max(48, vw * 0.07);
+    const padTop = vw <= 640 ? 72 : 80;
+    const padBottom = vw <= 640 ? 80 : 96;
+    const nw = this.nw || 1, nh = this.nh || 1;
+    const scale = Math.min((vw - padX * 2) / nw, (vh - padTop - padBottom) / nh);
+    const w = nw * scale, h = nh * scale;
+    return {
+      left: (vw - w) / 2,
+      top: padTop + (vh - padTop - padBottom - h) / 2,
+      width: w,
+      height: h,
+    };
+  }
+
+  applyRect(r, animate = true) {
+    const s = this.img.style;
+    if (animate) {
+      s.transition = 'left 0.5s cubic-bezier(0.16, 1, 0.3, 1), top 0.5s cubic-bezier(0.16, 1, 0.3, 1), width 0.5s cubic-bezier(0.16, 1, 0.3, 1), height 0.5s cubic-bezier(0.16, 1, 0.3, 1)';
+    } else {
+      s.transition = 'none';
+    }
+    s.left = r.left + 'px';
+    s.top = r.top + 'px';
+    s.width = r.width + 'px';
+    s.height = r.height + 'px';
+  }
+
+  placeCaption(r) {
+    this.captionEl.style.left = r.left + 'px';
+    this.captionEl.style.top = (r.top + r.height + 16) + 'px';
+  }
+
+  open(sourceImg, title, tag, gallery = []) {
+    if (this.isOpen) return;
+    this.isOpen = true;
+    this.isAnimating = true;
+    clearTimeout(this.closeTimer);
+    document.body.style.overflow = 'hidden';
+
+    this.source = sourceImg;
+    this.title = title;
+    this.tag = tag;
+    this.gallery = (Array.isArray(gallery) && gallery.length) ? gallery : [sourceImg.currentSrc || sourceImg.src];
+    this.currentIndex = 0;
+
+    this.nw = sourceImg.naturalWidth || +sourceImg.getAttribute('width') || 1;
+    this.nh = sourceImg.naturalHeight || +sourceImg.getAttribute('height') || 1;
+
+    this.img.src = this.gallery[0];
+    this.img.style.transform = 'none';
+    this.updateCaption();
+
+    // Начальная позиция ровно с миниатюры
+    const startRect = sourceImg.getBoundingClientRect();
+    this.applyRect(startRect, false);
+    this.img.style.opacity = '1';
+    this.img.getBoundingClientRect(); // reflow
+
+    sourceImg.style.visibility = 'hidden';
+
+    this.root.classList.remove('is-closing');
+    this.root.classList.add('is-open');
+    if (this.gallery.length > 1) {
+      this.root.classList.add('has-multiple');
+    } else {
+      this.root.classList.remove('has-multiple');
+    }
+    this.root.setAttribute('aria-hidden', 'false');
+
+    // Плавный вылет в центр экрана
+    const target = this.targetRect();
+    this.placeCaption(target);
+    requestAnimationFrame(() => {
+      this.applyRect(target, true);
+      setTimeout(() => {
+        this.isAnimating = false;
+      }, 520);
+    });
+  }
+
+  updateCaption() {
+    const parts = [this.title, this.tag.replace(/[\[\]]/g, '').trim()];
+    if (this.gallery.length > 1) {
+      parts.push(`[ ${this.currentIndex + 1} / ${this.gallery.length} ]`);
+    }
+    this.captionEl.textContent = parts.filter(Boolean).join(' · ');
+  }
+
+  prev() {
+    if (!this.isOpen || this.gallery.length <= 1 || this.isAnimating) return;
+    this.currentIndex = (this.currentIndex - 1 + this.gallery.length) % this.gallery.length;
+    this.switchImage(-1);
+  }
+
+  next() {
+    if (!this.isOpen || this.gallery.length <= 1 || this.isAnimating) return;
+    this.currentIndex = (this.currentIndex + 1) % this.gallery.length;
+    this.switchImage(1);
+  }
+
+  // Плавная кинетическая анимация слайда (slide + fade)
+  switchImage(dir = 1) {
+    this.isAnimating = true;
+    const nextSrc = this.gallery[this.currentIndex];
+
+    // Текущая картинка плавно уезжает со сдвигом по X и затухает
+    this.img.style.transition = 'transform 0.28s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.26s ease';
+    this.img.style.transform = `translateX(${-dir * 45}px) scale(0.96)`;
+    this.img.style.opacity = '0';
+    this.captionEl.style.opacity = '0.3';
+
+    const temp = new Image();
+    temp.src = nextSrc;
+    temp.onload = () => {
+      setTimeout(() => {
+        if (!this.isOpen) return;
+
+        this.nw = temp.naturalWidth || this.nw;
+        this.nh = temp.naturalHeight || this.nh;
+        this.img.src = nextSrc;
+
+        const target = this.targetRect();
+        this.applyRect(target, false);
+        // Новая картинка стартует с противоположной стороны
+        this.img.style.transform = `translateX(${dir * 45}px) scale(0.96)`;
+        this.img.style.opacity = '0';
+        this.img.getBoundingClientRect(); // reflow
+
+        this.placeCaption(target);
+        this.updateCaption();
+
+        // Плавный выезд новой картинки на место
+        requestAnimationFrame(() => {
+          this.img.style.transition = 'transform 0.42s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.38s ease, left 0.42s cubic-bezier(0.16, 1, 0.3, 1), top 0.42s cubic-bezier(0.16, 1, 0.3, 1), width 0.42s cubic-bezier(0.16, 1, 0.3, 1), height 0.42s cubic-bezier(0.16, 1, 0.3, 1)';
+          this.img.style.transform = 'translateX(0) scale(1)';
+          this.img.style.opacity = '1';
+          this.captionEl.style.opacity = '1';
+
+          setTimeout(() => {
+            this.isAnimating = false;
+          }, 450);
+        });
+      }, 50);
+    };
+  }
+
+  close() {
+    if (!this.isOpen) return;
+    this.isOpen = false;
+    this.isAnimating = true;
+    this.root.setAttribute('aria-hidden', 'true');
+
+    this.root.classList.remove('is-open');
+    this.root.classList.add('is-closing');
+
+    // Если перелистывали слайды, синхронизируем миниатюру в сетке
+    if (this.source && this.gallery.length > 1) {
+      this.source.src = this.gallery[this.currentIndex];
+    }
+
+    // Плавный полет картинки ОБРАТНО в координаты миниатюры
+    if (this.source) {
+      const sourceRect = this.source.getBoundingClientRect();
+      this.img.style.transform = 'none';
+      this.applyRect(sourceRect, true);
+    } else {
+      this.img.style.opacity = '0';
+    }
+
+    this.closeTimer = setTimeout(() => {
+      this.root.classList.remove('is-closing');
+      this.root.classList.remove('has-multiple');
+      this.img.style.opacity = '0';
+      this.img.style.transform = 'none';
+      this.applyRect({ left: 0, top: 0, width: 0, height: 0 }, false);
+      if (this.source) {
+        this.source.style.visibility = '';
+      }
+      document.body.style.overflow = ''; // скролл полностью разблокирован
+      this.isAnimating = false;
+    }, 500);
+  }
+}
+
+window.addEventListener('DOMContentLoaded', () => {
+  const grid = document.querySelector('.stream-grid');
+  if (grid) new MasonryGrid(grid);
+  window.worksLightbox = new Lightbox();
+});
