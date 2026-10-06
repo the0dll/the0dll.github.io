@@ -32,6 +32,7 @@
       'works.close': 'Close',
       'works.prev_image': 'Previous image',
       'works.next_image': 'Next image',
+      'works.variants': 'VARIANTS',
 
       'about.page_title': "about — the0dll",
       'about.file': '( FILE: ABOUT.TOE )',
@@ -93,6 +94,7 @@
       'works.close': 'Закрыть',
       'works.prev_image': 'Предыдущее изображение',
       'works.next_image': 'Следующее изображение',
+      'works.variants': 'ВАРИАНТЫ',
 
       'about.page_title': "обо мне — the0dll",
       'about.file': '( ФАЙЛ: ABOUT.TOE )',
