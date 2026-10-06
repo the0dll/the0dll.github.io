@@ -1,0 +1,116 @@
+/* ==========================================================================
+   Connections & Intersections Graph Styles
+   ========================================================================== */
+
+/* --- Section Container & Layout --- */
+.connections-section {
+  background: #0c0c0c;
+  width: 100%;
+  padding: 64px 0 48px;
+  position: relative;
+  overflow: hidden;
+}
+
+.connections-container {
+  position: relative;
+  width: 100%;
+  max-width: 1600px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+/* --- Section Header & Typography --- */
+.connections-header {
+  margin-bottom: 48px;
+}
+
+.connections-title {
+  font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+  font-size: clamp(28px, 5vw, 56px);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  text-transform: uppercase;
+  color: #f2f0eb;
+  line-height: 1;
+  margin-bottom: 16px;
+}
+
+.connections-subtitle {
+  font-family: "Space Mono", monospace;
+  font-size: 13px;
+  color: rgba(242, 240, 235, 0.45);
+  letter-spacing: 0.02em;
+  max-width: 520px;
+  line-height: 1.6;
+}
+
+/* --- Interactive Physics Canvas --- */
+#connections-canvas {
+  display: block;
+  width: 100%;
+  height: 720px;
+  cursor: grab;
+  touch-action: none;
+  user-select: none;
+}
+
+#connections-canvas:active {
+  cursor: grabbing;
+}
+
+/* --- Node Hover Tooltip --- */
+.conn-tooltip {
+  position: fixed;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  background: rgba(12, 12, 12, 0.92);
+  border: 1px solid rgba(242, 240, 235, 0.15);
+  border-radius: 6px;
+  padding: 8px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  opacity: 0;
+  transform: translate(-50%, calc(-100% - 14px));
+  transition: opacity 0.15s ease;
+  z-index: 9999;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+.conn-tooltip.visible {
+  opacity: 1;
+}
+
+.conn-tooltip-name {
+  font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  color: #f2f0eb;
+  white-space: nowrap;
+}
+
+.conn-tooltip-role {
+  font-family: "Space Mono", monospace;
+  font-size: 10px;
+  color: rgba(242, 240, 235, 0.5);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  white-space: nowrap;
+}
+
+/* --- Mobile Responsive Rules --- */
+@media (max-width: 640px) {
+  .connections-section {
+    padding: 56px 0 56px;
+  }
+
+  .connections-container {
+    padding: 0 24px;
+  }
+
+  #connections-canvas {
+    height: 480px;
+  }
+}
