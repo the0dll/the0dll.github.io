@@ -135,6 +135,7 @@ class Lightbox {
     });
 
     document.querySelectorAll('.stream-card').forEach((card) => {
+      this.addVariantMarker(card);
       card.addEventListener('click', () => {
         const img = card.querySelector('img');
         const title = card.querySelector('.stream-title')?.textContent || '';
@@ -151,6 +152,31 @@ class Lightbox {
         this.open(img, title, tag, gallery);
       });
     });
+  }
+
+  addVariantMarker(card) {
+    const raw = card.getAttribute('data-gallery');
+    if (!raw) return;
+
+    let gallery = [];
+    try {
+      gallery = JSON.parse(raw);
+    } catch (_) {
+      gallery = raw.split(',').map(s => s.trim()).filter(Boolean);
+    }
+
+    if (gallery.length <= 1) return;
+
+    let marker = card.querySelector('.stream-variants');
+    if (!marker) {
+      marker = document.createElement('span');
+      marker.className = 'stream-variants';
+      marker.setAttribute('aria-hidden', 'true');
+      card.appendChild(marker);
+    }
+
+    marker.innerHTML = `<span class="stream-variants-icon" aria-hidden="true"></span><span class="stream-variants-count">${gallery.length}</span>`;
+    marker.setAttribute('aria-label', `This work contains ${gallery.length} variants`);
   }
 
   targetRect() {
@@ -213,6 +239,8 @@ class Lightbox {
     this.img.getBoundingClientRect();
 
     sourceImg.style.visibility = 'hidden';
+    const sourceCard = sourceImg.closest('.stream-card');
+    if (sourceCard) sourceCard.classList.add('lightbox-source-open');
 
     this.root.classList.remove('is-closing');
     this.root.classList.add('is-open');
@@ -303,6 +331,9 @@ class Lightbox {
 
     this.root.classList.remove('is-open');
     this.root.classList.add('is-closing');
+
+    const sourceCard = this.source?.closest('.stream-card');
+    if (sourceCard) sourceCard.classList.remove('lightbox-source-open');
 
     if (this.source && this.gallery.length > 1) {
       this.source.src = this.gallery[this.currentIndex];
