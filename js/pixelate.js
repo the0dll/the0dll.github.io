@@ -1,7 +1,7 @@
-/* ==========================================================================
+/* ========================================================================
    Hero Image Pixelate Reveal Animation
    Stepped pixel resolution downscale/upscale reveal on initial load
-   ========================================================================== */
+   ======================================================================== */
 
 (function () {
   const box = document.getElementById('animated-media');
@@ -12,8 +12,25 @@
   const STEPS = [40, 24, 14, 8, 4, 2];
   const STEP_MS = 150;
 
+  let timer = null;
+  let activeCanvas = null;
+
+  function cleanup() {
+    if (timer !== null) {
+      clearInterval(timer);
+      timer = null;
+    }
+    if (activeCanvas) {
+      activeCanvas.remove();
+      activeCanvas = null;
+    }
+    img.style.visibility = '';
+  }
+
   function run() {
+    cleanup();
     if (!img.naturalWidth) return;
+
     const dpr = Math.min(window.devicePixelRatio || 1, 2);
     const W = Math.round(box.clientWidth * dpr);
     const H = Math.round(box.clientHeight * dpr);
@@ -26,19 +43,22 @@
     // Create temporary pixelation canvas
     const cv = document.createElement('canvas');
     cv.className = 'hero-pixel-canvas';
-    cv.width = W; cv.height = H;
+    cv.width = W;
+    cv.height = H;
     cv.setAttribute('aria-hidden', 'true');
     const ctx = cv.getContext('2d');
     const tiny = document.createElement('canvas');
     const tctx = tiny.getContext('2d');
     box.appendChild(cv);
+    activeCanvas = cv;
     img.style.visibility = 'hidden';
 
     // --- Render Low-Resolution Stepped Pixel Pass ---
     function draw(block) {
       const bw = Math.max(1, Math.round(dw / (block * dpr)));
       const bh = Math.max(1, Math.round(dh / (block * dpr)));
-      tiny.width = bw; tiny.height = bh;
+      tiny.width = bw;
+      tiny.height = bh;
       tctx.imageSmoothingEnabled = true;
       tctx.drawImage(img, 0, 0, bw, bh);
       ctx.clearRect(0, 0, W, H);
@@ -49,12 +69,14 @@
     // --- Stepped Resolution Animation Timer ---
     let i = 0;
     draw(STEPS[0]);
-    const timer = setInterval(() => {
+    timer = setInterval(() => {
       i++;
       if (i >= STEPS.length) {
         clearInterval(timer);
+        timer = null;
         img.style.visibility = '';
         cv.remove();
+        activeCanvas = null;
         return;
       }
       draw(STEPS[i]);
@@ -62,5 +84,14 @@
   }
 
   // --- Image Load Event Trigger ---
-  if (img.complete) run(); else img.addEventListener('load', run, { once: true });
+  if (img.complete) run();
+  else img.addEventListener('load', run, { once: true });
+
+  // Reset temporary state before the page enters the bfcache.
+  window.addEventListener('pagehide', cleanup);
+
+  // Re-run after browser Back/Forward restores this page from the bfcache.
+  window.addEventListener('pageshow', (event) => {
+    if (event.persisted) requestAnimationFrame(run);
+  });
 })();
