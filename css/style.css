@@ -773,91 +773,6 @@ a {
   transform: translateY(0);
 }
 
-.stream-variants {
-  position: absolute;
-  top: 12px;
-  right: 12px;
-  z-index: 12;
-  width: 42px;
-  height: 38px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #0c0c0c;
-  background: #f2f0eb;
-  border: 2px solid #0c0c0c;
-  border-radius: 4px;
-  box-shadow: 3px 3px 0 #0c0c0c;
-  pointer-events: none;
-  user-select: none;
-  opacity: 0;
-  transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1),
-              transform 0.5s cubic-bezier(0.16, 1, 0.3, 1),
-              box-shadow 0.25s ease;
-  transform: translateY(-10px) scale(0.88);
-}
-
-.stream-card.is-visible .stream-variants {
-  opacity: 1;
-  transform: translateY(0) scale(1);
-  transition-delay: calc(var(--d, 0ms) + 180ms);
-}
-
-.stream-variants-icon {
-  position: relative;
-  display: block;
-  width: 23px;
-  height: 17px;
-  border: 2px solid currentColor;
-  border-radius: 2px;
-  background: transparent;
-}
-
-.stream-variants-icon::before {
-  content: '';
-  position: absolute;
-  left: -2px;
-  top: -6px;
-  width: 10px;
-  height: 6px;
-  border: 2px solid currentColor;
-  border-bottom: 0;
-  border-radius: 2px 2px 0 0;
-  background: #f2f0eb;
-}
-
-.stream-variants-count {
-  position: absolute;
-  right: -9px;
-  bottom: -9px;
-  min-width: 25px;
-  height: 25px;
-  padding: 0 3px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border: 2px solid #f2f0eb;
-  border-radius: 50%;
-  background: #0c0c0c;
-  color: #f2f0eb;
-  font-size: 13px;
-  font-weight: 800;
-  line-height: 1;
-  letter-spacing: 0;
-}
-
-.stream-card.is-visible:hover .stream-variants {
-  transform: translate(-1px, -1px) scale(1);
-  box-shadow: 4px 4px 0 #0c0c0c;
-}
-
-
-
-.stream-card.lightbox-source-open .stream-variants {
-  opacity: 0;
-  transform: translateY(-8px) scale(0.9);
-}
-
 .stream-media-box {
   position: relative;
   width: 100%;
@@ -1655,6 +1570,34 @@ html[lang="ru"] .unified-about-display {
 }
 
 @media (max-width: 900px) {
+  .site-header {
+    padding: 14px 16px;
+    align-items: center;
+  }
+
+  .brand-logo {
+    font-size: 20px;
+  }
+
+  .site-nav {
+    gap: 10px;
+    margin-right: 4px;
+  }
+
+  .site-nav .nav-link {
+    font-size: 10px;
+    letter-spacing: 0.1em;
+  }
+
+  .lang-switch {
+    gap: 6px;
+    font-size: 11px;
+  }
+
+  .header-right {
+    gap: 10px;
+  }
+
   .stage-text-grid {
     display: flex;
     flex-direction: column;
@@ -1691,6 +1634,19 @@ html[lang="ru"] .unified-about-display {
   .works-page-container,
   .page-container {
     padding: 100px 20px 60px;
+  }
+
+  .meta-item {
+    font-size: 13px;
+  }
+
+  .contact-headline {
+    font-size: clamp(32px, 10vw, 56px);
+  }
+
+  .channel-link {
+    font-size: clamp(18px, 5vw, 28px);
+    padding: 18px 0;
   }
 }
 
@@ -1835,6 +1791,41 @@ html[lang="ru"] .unified-about-display {
 }
 
 @media (max-width: 640px) {
+  .site-header {
+    padding: 12px 12px;
+  }
+
+  .brand-logo {
+    font-size: 18px;
+  }
+
+  .site-nav {
+    gap: 8px;
+  }
+
+  .site-nav .nav-link {
+    font-size: 9px;
+    letter-spacing: 0.06em;
+  }
+
+  .lang-btn {
+    font-size: 11px;
+  }
+
+  .works-page-container,
+  .page-container {
+    padding: 88px 14px 48px;
+  }
+
+  .stage-text-grid {
+    padding: 88px 14px 64px;
+  }
+
+  .community-btn {
+    padding: 14px 22px;
+    font-size: 11px;
+  }
+
   .lightbox-prev { left: 12px; }
   .lightbox-next { right: 12px; }
   .lightbox-nav-btn { width: 40px; height: 40px; font-size: 16px; }
