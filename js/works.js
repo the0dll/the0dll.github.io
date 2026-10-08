@@ -135,7 +135,6 @@ class Lightbox {
     });
 
     document.querySelectorAll('.stream-card').forEach((card) => {
-      this.addVariantMarker(card);
       card.addEventListener('click', () => {
         const img = card.querySelector('img');
         const title = card.querySelector('.stream-title')?.textContent || '';
@@ -152,31 +151,6 @@ class Lightbox {
         this.open(img, title, tag, gallery);
       });
     });
-  }
-
-  addVariantMarker(card) {
-    const raw = card.getAttribute('data-gallery');
-    if (!raw) return;
-
-    let gallery = [];
-    try {
-      gallery = JSON.parse(raw);
-    } catch (_) {
-      gallery = raw.split(',').map(s => s.trim()).filter(Boolean);
-    }
-
-    if (gallery.length <= 1) return;
-
-    let marker = card.querySelector('.stream-variants');
-    if (!marker) {
-      marker = document.createElement('span');
-      marker.className = 'stream-variants';
-      marker.setAttribute('aria-hidden', 'true');
-      card.appendChild(marker);
-    }
-
-    marker.innerHTML = `<span class="stream-variants-icon" aria-hidden="true"></span><span class="stream-variants-count">${gallery.length}</span>`;
-    marker.setAttribute('aria-label', `This work contains ${gallery.length} variants`);
   }
 
   targetRect() {
@@ -218,9 +192,11 @@ class Lightbox {
     this.isOpen = true;
     this.isAnimating = true;
     clearTimeout(this.closeTimer);
+    clearTimeout(this.badgeReturnTimer);
     document.body.style.overflow = 'hidden';
 
     this.source = sourceImg;
+    sourceImg.style.opacity = '';
     this.title = title;
     this.tag = tag;
     this.gallery = (Array.isArray(gallery) && gallery.length) ? gallery : [sourceImg.currentSrc || sourceImg.src];
@@ -239,8 +215,14 @@ class Lightbox {
     this.img.getBoundingClientRect();
 
     sourceImg.style.visibility = 'hidden';
-    const sourceCard = sourceImg.closest('.stream-card');
-    if (sourceCard) sourceCard.classList.add('lightbox-source-open');
+
+    // fade out gallery badge on the card
+    const card = sourceImg.closest('.stream-card');
+    this.activeBadge = card ? card.querySelector('.stream-gallery-badge') : null;
+    if (this.activeBadge) {
+      this.activeBadge.classList.remove('is-returning');
+      this.activeBadge.classList.add('is-hidden');
+    }
 
     this.root.classList.remove('is-closing');
     this.root.classList.add('is-open');
@@ -332,9 +314,6 @@ class Lightbox {
     this.root.classList.remove('is-open');
     this.root.classList.add('is-closing');
 
-    const sourceCard = this.source?.closest('.stream-card');
-    if (sourceCard) sourceCard.classList.remove('lightbox-source-open');
-
     if (this.source && this.gallery.length > 1) {
       this.source.src = this.gallery[this.currentIndex];
     }
@@ -343,8 +322,25 @@ class Lightbox {
       const sourceRect = this.source.getBoundingClientRect();
       this.img.style.transform = 'none';
       this.applyRect(sourceRect, true);
+      this.img.style.transition = 'left 0.5s cubic-bezier(0.16, 1, 0.3, 1), top 0.5s cubic-bezier(0.16, 1, 0.3, 1), width 0.5s cubic-bezier(0.16, 1, 0.3, 1), height 0.5s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.45s ease';
+      this.img.style.opacity = '0';
+      this.source.style.visibility = '';
+      this.source.style.opacity = '0';
+      requestAnimationFrame(() => {
+        if (!this.isOpen && this.source) this.source.style.opacity = '1';
+      });
     } else {
       this.img.style.opacity = '0';
+    }
+
+    // fade badge back in as lightbox closes
+    if (this.activeBadge) {
+      const badge = this.activeBadge;
+      badge.classList.add('is-returning');
+      this.activeBadge.classList.remove('is-hidden');
+      this.badgeReturnTimer = setTimeout(() => {
+        badge.classList.remove('is-returning');
+      }, 550);
     }
 
     this.closeTimer = setTimeout(() => {
@@ -355,15 +351,50 @@ class Lightbox {
       this.applyRect({ left: 0, top: 0, width: 0, height: 0 }, false);
       if (this.source) {
         this.source.style.visibility = '';
+        this.source.style.opacity = '';
       }
+      this.activeBadge = null;
       document.body.style.overflow = '';
       this.isAnimating = false;
     }, 500);
   }
 }
 
+// --- Gallery folder badges on multi-image cards ---
+function injectGalleryBadges() {
+  document.querySelectorAll('.stream-card[data-gallery]').forEach((card) => {
+    if (card.querySelector('.stream-gallery-badge')) return;
+
+    let gallery = [];
+    const raw = card.getAttribute('data-gallery');
+    try {
+      gallery = JSON.parse(raw);
+    } catch (_) {
+      gallery = raw.split(',').map((s) => s.trim()).filter(Boolean);
+    }
+    if (!Array.isArray(gallery) || gallery.length < 2) return;
+
+    const media = card.querySelector('.stream-media-box');
+    if (!media) return;
+
+    const badge = document.createElement('div');
+    badge.className = 'stream-gallery-badge';
+    badge.setAttribute('aria-label', `${gallery.length} images`);
+    badge.innerHTML = `
+      <div class="badge-face">
+        <svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <path d="M1.5 4h4.2l1.3 1.7H14.5v7.3H1.5V4z" stroke="#0c0c0c" stroke-width="1.6" stroke-linejoin="round"/>
+        </svg>
+      </div>
+      <span class="gallery-count">${gallery.length}</span>
+    `;
+    media.appendChild(badge);
+  });
+}
+
 // --- Initialize Masonry and Lightbox on Load ---
 window.addEventListener('DOMContentLoaded', () => {
+  injectGalleryBadges();
   const grid = document.querySelector('.stream-grid');
   if (grid) new MasonryGrid(grid);
   window.worksLightbox = new Lightbox();
