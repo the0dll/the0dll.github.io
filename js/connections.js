@@ -11,33 +11,35 @@
      Add, remove, or edit avatars, labels, roles, and edge links here
      ========================================================================== */
   const NODES_DATA = [
-    { id: 'the0dll',    name: 'the0dll',        role: 'me',                  image: 'assets/avatars/me.jpg',          group: 'center'    },
-    { id: 'tigris',     name: 'Tigris',          role: 'NewEra',              image: 'assets/avatars/tigris.jpg',      group: 'people'    },
-    { id: 'gamdav',     name: 'Gamdav',          role: 'Shape',               image: 'assets/avatars/gamdav.jpg',      group: 'people'    },
-    { id: 'bedno',      name: 'Bedno',           role: 'Bloomy',              image: 'assets/avatars/bedno.jpg',       group: 'people'    },
-    { id: 'pigeonov',   name: 'pigeonov',        role: 'Elytra',              image: 'assets/avatars/pigeonov.png',    group: 'people'    },
-    { id: 'illystray',  name: 'illystray',       role: 'BDEngine',            image: 'assets/avatars/illystray.jpg',   group: 'people'    },
-    { id: 'monkesha',   name: 'What / Monkesha', role: 'designer',            image: 'assets/avatars/what.jpg',        group: 'people'    },
-    { id: 'lorutskii',  name: 'lorutskii',       role: 'streamer',            image: 'assets/avatars/lorutskii.jpg',   group: 'people'    },
-    { id: 'toolki',     name: 'Toolki1',         role: 'long-term client',    image: 'assets/avatars/toolki1.jpg',     group: 'people'    },
-    { id: 'notrofls',   name: 'notrofls',        role: 'youtuber / tiktoker', image: 'assets/avatars/notrofls.jpg',    group: 'people'    },
-    { id: 'dravenit',   name: 'Dravenit',        role: 'artist',              image: 'assets/avatars/dravenit.jpg',    group: 'people'    },
-    { id: 'jesse',      name: 'Jesse',           role: 'artist',              image: 'assets/avatars/jesse.jpg',       group: 'people'    },
-    { id: 'krimsshi',   name: 'Krimsshi',        role: 'videographer',        image: 'assets/avatars/krimsshi.jpg',    group: 'people'    },
-    { id: 'newera',     name: 'NewEra',          role: 'studio',              image: 'assets/avatars/newera.jpg',      group: 'projects'  },
-    { id: 'shape',      name: 'Shape',           role: 'studio',              image: 'assets/avatars/shape.jpg',       group: 'projects'  },
-    { id: 'bloomy',     name: 'Bloomy',          role: 'server',              image: 'assets/avatars/bloomy.jpg',      group: 'projects'  },
-    { id: 'elytra',     name: 'Elytra',          role: 'server',              image: 'assets/avatars/elytra.png',      group: 'projects'  },
-    { id: 'bdengine',   name: 'BDEngine',        role: 'engine',              image: 'assets/avatars/bdengine.webp',   group: 'projects', darkBg: true },
-    { id: 'melur',      name: 'Melur',           role: 'server',              image: 'assets/avatars/melur.jpg',       group: 'projects'  },
-    { id: 'multiverse', name: 'Multiverse',      role: 'community',           image: 'assets/avatars/multiverse.png',  group: 'community' },
-    { id: 'privatclub', name: 'Privat Club',     role: 'community',           image: 'assets/avatars/privatclub.jpg',  group: 'community' },
+    { id: 'the0dll',    name: 'the0dll',        role: 'me',                       image: 'assets/avatars/me.jpg',          group: 'center'    },
+    { id: 'tigris',     name: 'Tigris',          role: 'NewEra',                   image: 'assets/avatars/tigris.jpg',      group: 'people'    },
+    { id: 'gamdav',     name: 'Gamdav',          role: 'Shape',                    image: 'assets/avatars/gamdav.jpg',      group: 'people'    },
+    { id: 'bedno',      name: 'Bedno',           role: 'Bloomy',                   image: 'assets/avatars/bedno.jpg',       group: 'people'    },
+    { id: 'pigeonov',   name: 'pigeonov',        role: 'Elytra',                   image: 'assets/avatars/pigeonov.png',    group: 'people'    },
+    { id: 'illystray',  name: 'illystray',       role: 'BDEngine',                 image: 'assets/avatars/illystray.jpg',   group: 'people'    },
+    { id: 'monkesha',   name: 'What / Monkesha', role: 'designer',                 image: 'assets/avatars/what.jpg',        group: 'people'    },
+    { id: 'lorutskii',  name: 'lorutskii',       role: 'streamer',                 image: 'assets/avatars/lorutskii.jpg',   group: 'people'    },
+    { id: 'toolki',     name: 'Toolki1',         role: 'long-term client / streamer', image: 'assets/avatars/toolki1.jpg',  group: 'people'    },
+    { id: 'notrofls',   name: 'notrofls',        role: 'youtuber / tiktoker',      image: 'assets/avatars/notrofls.jpg',    group: 'people'    },
+    { id: 'dravenit',   name: 'Dravenit',        role: 'artist',                   image: 'assets/avatars/dravenit.jpg',    group: 'people'    },
+    { id: 'jesse',      name: 'Jesse',           role: 'artist',                   image: 'assets/avatars/jesse.jpg',       group: 'people'    },
+    { id: 'krimsshi',   name: 'Krimsshi',        role: 'videographer',             image: 'assets/avatars/krimsshi.jpg',    group: 'people'    },
+    { id: 'pwgood',     name: 'PWGood',          role: 'streamer',                 image: 'assets/avatars/pwgood.jpg',      group: 'people'    },
+    { id: 'newera',     name: 'NewEra',          role: 'studio',                   image: 'assets/avatars/newera.jpg',      group: 'projects'  },
+    { id: 'shape',      name: 'Shape',           role: 'studio',                   image: 'assets/avatars/shape.jpg',       group: 'projects'  },
+    { id: 'bloomy',     name: 'Bloomy',          role: 'server',                   image: 'assets/avatars/bloomy.jpg',      group: 'projects'  },
+    { id: 'elytra',     name: 'Elytra',          role: 'server',                   image: 'assets/avatars/elytra.png',      group: 'projects', darkBg: true },
+    { id: 'bdengine',   name: 'BDEngine',        role: 'engine',                   image: 'assets/avatars/bdengine.webp',   group: 'projects', darkBg: true },
+    { id: 'melur',      name: 'Melur',           role: 'server',                   image: 'assets/avatars/melur.jpg',       group: 'projects'  },
+    { id: 'spemotes',   name: 'SPEmotes',        role: 'emotes',                   image: 'assets/avatars/spemotes.jpg',    group: 'projects'  },
+    { id: 'multiverse', name: 'Multiverse',      role: 'community',                image: 'assets/avatars/multiverse.png',  group: 'community' },
+    { id: 'privatclub', name: 'Privat Club',     role: 'community',                image: 'assets/avatars/privatclub.jpg',  group: 'community' },
   ];
 
   const LINKS_DATA = [
     ['the0dll', 'tigris'],    ['tigris', 'newera'],    ['the0dll', 'newera'],
     ['the0dll', 'gamdav'],    ['gamdav', 'shape'],     ['the0dll', 'shape'],
-    ['the0dll', 'bedno'],     ['bedno', 'bloomy'],     ['newera', 'bloomy'],
+    ['bedno', 'bloomy'],      ['newera', 'bloomy'],
     ['the0dll', 'pigeonov'],  ['pigeonov', 'elytra'],
     ['the0dll', 'illystray'], ['illystray', 'bdengine'],
     ['the0dll', 'monkesha'],
@@ -55,6 +57,8 @@
     ['gamdav',    'multiverse'], ['bedno',    'multiverse'],
     ['notrofls',  'multiverse'], ['illystray','multiverse'],
     ['monkesha',  'multiverse'],
+    ['spemotes',  'newera'],     ['spemotes', 'tigris'],
+    ['pwgood',    'shape'],      ['pwgood',   'gamdav'],
   ];
 
 
@@ -70,12 +74,14 @@
     dravenit: 'role.artist',
     jesse: 'role.artist',
     krimsshi: 'role.videographer',
+    pwgood: 'role.streamer',
     newera: 'role.studio',
     shape: 'role.studio',
     bloomy: 'role.server',
     elytra: 'role.server',
     bdengine: 'role.engine',
     melur: 'role.server',
+    spemotes: 'role.emotes',
     multiverse: 'role.community',
     privatclub: 'role.community',
   };
@@ -578,5 +584,6 @@
       simActive = true;
     }, 200);
   });
+
 
 })();
