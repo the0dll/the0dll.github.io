@@ -101,16 +101,34 @@
 }
 
 /* --- Mobile Responsive Rules --- */
-@media (max-width: 640px) {
-  .connections-section {
-    padding: 56px 0 56px;
-  }
-
-  .connections-container {
-    padding: 0 24px;
+@media (max-width: 900px) {
+  .connections-header {
+    margin-bottom: 28px;
   }
 
   #connections-canvas {
-    height: 480px;
+    height: 560px;
+  }
+}
+
+@media (max-width: 640px) {
+  .connections-section {
+    padding: 40px 0 40px;
+  }
+
+  .connections-container {
+    padding: 0 16px;
+  }
+
+  .connections-title {
+    font-size: clamp(24px, 8vw, 36px);
+  }
+
+  .connections-subtitle {
+    font-size: 12px;
+  }
+
+  #connections-canvas {
+    height: min(70vh, 420px);
   }
 }
