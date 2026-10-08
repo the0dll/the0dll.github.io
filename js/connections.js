@@ -113,11 +113,39 @@
 
   const LS_KEY = 'conn_positions_v2';
 
+  const NODE_RADIUS_MAP = {
+    the0dll: 34,
+    tigris: 30, newera: 30, toolki: 30,
+    shape: 27, lorutskii: 27,
+    monkesha: 25, pigeonov: 25, illystray: 25, elytra: 25, bdengine: 25, spemotes: 25,
+    melur: 23, bloomy: 23, jesse: 23, notrofls: 23, krimsshi: 23, gamdav: 23, privatclub: 23, multiverse: 23,
+  };
+
   function nodeRadius(node) {
-    if (node.group === 'center')                               return 30;
-    if (node.group === 'projects' || node.group === 'community') return 22;
-    return 18;
+    return NODE_RADIUS_MAP[node.id] || 20;
   }
+
+  /* Solid (work / direct project) connections; order of pair does not matter */
+  const SOLID_PAIRS = [
+    ['the0dll', 'tigris'],   ['the0dll', 'newera'],    ['the0dll', 'shape'],
+    ['the0dll', 'toolki'],   ['the0dll', 'lorutskii'], ['the0dll', 'pigeonov'],
+    ['the0dll', 'illystray'],['the0dll', 'monkesha'],  ['tigris', 'newera'],
+    ['gamdav', 'shape'],     ['toolki', 'melur'],      ['gamdav', 'the0dll'],
+  ];
+  const SOLID_KEYS = new Set(SOLID_PAIRS.map(([a, b]) => [a, b].sort().join('|')));
+  function isSolidLink(a, b) {
+    return SOLID_KEYS.has([a, b].sort().join('|'));
+  }
+
+  /* About-section CTA: smooth scroll to the graph section */
+  document.querySelectorAll('[data-scroll-to-connections]').forEach(btn => {
+    btn.addEventListener('click', e => {
+      const target = document.getElementById('connections-section');
+      if (!target) return;
+      e.preventDefault();
+      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  });
 
   const canvas  = document.getElementById('connections-canvas');
   if (!canvas) return;
@@ -195,6 +223,7 @@
     links = LINKS_DATA.map(([a, b]) => ({
       source: nodeMap[a],
       target: nodeMap[b],
+      solid:  isSolidLink(a, b),
     })).filter(l => l.source && l.target);
   }
 
@@ -332,15 +361,22 @@
   function draw() {
     ctx.clearRect(0, 0, W, H);
 
-    links.forEach(({ source: a, target: b }) => {
+    links.forEach(({ source: a, target: b, solid }) => {
       const isHoverLink = hoveredNode && (hoveredNode === a || hoveredNode === b);
       ctx.beginPath();
       ctx.moveTo(a.x, a.y);
       ctx.lineTo(b.x, b.y);
-      ctx.strokeStyle = isHoverLink ? 'rgba(242,240,235,0.35)' : 'rgba(242,240,235,0.10)';
-      ctx.lineWidth   = isHoverLink ? 1.2 : 0.7;
+      ctx.setLineDash(solid ? [] : [4, 5]);
+      if (solid) {
+        ctx.strokeStyle = isHoverLink ? 'rgba(242,240,235,0.5)' : 'rgba(242,240,235,0.24)';
+        ctx.lineWidth   = isHoverLink ? 1.5 : 1.1;
+      } else {
+        ctx.strokeStyle = isHoverLink ? 'rgba(242,240,235,0.4)' : 'rgba(242,240,235,0.16)';
+        ctx.lineWidth   = isHoverLink ? 1.2 : 0.8;
+      }
       ctx.stroke();
     });
+    ctx.setLineDash([]);
 
     nodes.forEach(node => {
       const isHovered = node === hoveredNode;
