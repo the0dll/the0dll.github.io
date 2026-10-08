@@ -453,28 +453,15 @@
     onScroll() {
       const winH = window.innerHeight;
       const rect = this.textEl.getBoundingClientRect();
-      const docH = document.documentElement.scrollHeight;
-      const scrollY = window.scrollY;
 
-      const isNearBottom = (scrollY + winH) >= (docH - 120);
-
-      if (rect.bottom <= winH * 0.88 || isNearBottom) {
-        this.tokens.forEach(token => {
-          token.style.filter = 'blur(0px)';
-          token.style.opacity = '1';
-          if (this.isCommunity) token.style.transform = 'translateY(0px)';
-        });
-        return;
-      }
-
-      const enterLine = winH * 0.88;
-      const leaveLine = winH * 0.38;
-      const travel = Math.max((enterLine - leaveLine) + rect.height * 0.6, 80);
+      const enterLine = winH * 0.9;
+      const leaveLine = winH * 0.35;
+      const travel = Math.max((enterLine - leaveLine) + rect.height * 0.45, 70);
       const current = enterLine - rect.top;
       const progress = Math.min(Math.max(current / travel, 0), 1);
 
       const totalWords = this.tokens.length;
-      const focalHead = progress * (totalWords + 2);
+      const focalHead = progress * (totalWords + 0.8);
 
       this.tokens.forEach((token, idx) => {
         const diff = idx - focalHead;
@@ -486,15 +473,15 @@
             token.style.transform = 'translateY(0px)';
           }
         } else {
-          const norm = Math.min(diff / 3.0, 1);
+          const norm = Math.min(diff / 1.6, 1);
           const blurPx = (norm * 5.5).toFixed(1);
-          const opacity = (1 - norm * 0.75).toFixed(2);
+          const opacity = (1 - norm * 0.78).toFixed(2);
 
           token.style.filter = `blur(${blurPx}px)`;
           token.style.opacity = opacity;
 
           if (this.isCommunity) {
-            const ty = (norm * 16).toFixed(1);
+            const ty = (norm * 12).toFixed(1);
             token.style.transform = `translateY(${ty}px)`;
           }
         }
