@@ -55,6 +55,16 @@
       'about.spec3': 'BRAND & GRAPHIC DESIGN',
       'about.community_html': '<span class="comm-token">Most</span> <span class="comm-token">of</span> <span class="comm-token">my</span> <span class="comm-token">work</span> <span class="comm-token">is</span> <span class="comm-token">centered</span> <span class="comm-token">around</span> <span class="comm-token comm-badge">Minecraft</span> <span class="comm-token">skinmaking,</span> <span class="comm-token">from</span> <span class="comm-token">custom</span> <span class="comm-token">character</span> <span class="comm-token">design</span> <span class="comm-token">and</span> <span class="comm-token">texturing</span> <span class="comm-token">to</span> <span class="comm-token">private</span> <span class="comm-token">commissions</span> <span class="comm-token">and</span> <span class="comm-token">studio</span> <span class="comm-token">work.</span> <span class="comm-token">I</span> <span class="comm-token">share</span> <span class="comm-token">finished</span> <span class="comm-token">skins,</span> <span class="comm-token">early</span> <span class="comm-token">concepts,</span> <span class="comm-token">experiments,</span> <span class="comm-token">and</span> <span class="comm-token">behind-the-scenes</span> <span class="comm-token">process</span> <span class="comm-token">with</span> <span class="comm-token">the</span> <span class="comm-token">community</span> <span class="comm-token">through</span> <span class="comm-token comm-badge">Telegram,</span> <span class="comm-token comm-badge">TikTok,</span> <span class="comm-token">and</span> <span class="comm-token comm-badge">Discord.</span> <span class="comm-token">The</span> <span class="comm-token">focus</span> <span class="comm-token">is</span> <span class="comm-token">always</span> <span class="comm-token">on</span> <span class="comm-token">Minecraft,</span> <span class="comm-token">character,</span> <span class="comm-token">detail,</span> <span class="comm-token">and</span> <span class="comm-token">the</span> <span class="comm-token">process</span> <span class="comm-token">of</span> <span class="comm-token">turning</span> <span class="comm-token">ideas</span> <span class="comm-token">into</span> <span class="comm-token">finished</span> <span class="comm-token">characters.</span>',
 
+      'conn.legend_me': 'Me',
+      'conn.legend_people': 'People',
+      'conn.legend_projects': 'Projects / Studios',
+      'conn.legend_community': 'Community',
+      'conn.legend_solid': 'Work / Direct Project',
+      'conn.legend_dashed': 'Community / Acquaintance',
+      'conn.cta_title': 'Want your project to be the next point on this map?',
+      'conn.cta_text': 'Open to commissions and barter collaborations.',
+      'conn.cta_btn': 'Open Telegram',
+      'about.graph_btn': 'View connections & intersections',
       'conn.title': 'Connections & Intersections',
       'conn.subtitle': 'I included this block because connections multiply efficiency and help close gaps in projects.',
 
@@ -119,6 +129,16 @@
       'about.spec3': 'БРЕНДИНГ И ГРАФИЧЕСКИЙ ДИЗАЙН',
       'about.community_html': '<span class="comm-token">Большая</span> <span class="comm-token">часть</span> <span class="comm-token">моей</span> <span class="comm-token">работы</span> <span class="comm-token">связана</span> <span class="comm-token">с</span> <span class="comm-token comm-badge">Minecraft</span> <span class="comm-token">скинмейкингом:</span> <span class="comm-token">от</span> <span class="comm-token">создания</span> <span class="comm-token">персонажей</span> <span class="comm-token">и</span> <span class="comm-token">текстурирования</span> <span class="comm-token">до</span> <span class="comm-token">частных</span> <span class="comm-token">заказов</span> <span class="comm-token">и</span> <span class="comm-token">работы</span> <span class="comm-token">со</span> <span class="comm-token">студиями.</span> <span class="comm-token">Я</span> <span class="comm-token">показываю</span> <span class="comm-token">готовые</span> <span class="comm-token">скины,</span> <span class="comm-token">ранние</span> <span class="comm-token">концепты,</span> <span class="comm-token">эксперименты</span> <span class="comm-token">и</span> <span class="comm-token">бэкстейдж</span> <span class="comm-token">процесса</span> <span class="comm-token">вместе</span> <span class="comm-token">с</span> <span class="comm-token">сообществом</span> <span class="comm-token">через</span> <span class="comm-token comm-badge">Telegram,</span> <span class="comm-token comm-badge">TikTok,</span> <span class="comm-token">и</span> <span class="comm-token comm-badge">Discord.</span> <span class="comm-token">В</span> <span class="comm-token">центре</span> <span class="comm-token">всегда</span> <span class="comm-token">остаются</span> <span class="comm-token">Minecraft,</span> <span class="comm-token">характер,</span> <span class="comm-token">детали</span> <span class="comm-token">и</span> <span class="comm-token">процесс</span> <span class="comm-token">превращения</span> <span class="comm-token">идеи</span> <span class="comm-token">в</span> <span class="comm-token">готового</span> <span class="comm-token">персонажа.</span>',
 
+      'conn.legend_me': 'Я',
+      'conn.legend_people': 'Люди',
+      'conn.legend_projects': 'Проекты / Студии',
+      'conn.legend_community': 'Комьюнити',
+      'conn.legend_solid': 'Работа / Прямой проект',
+      'conn.legend_dashed': 'Комьюнити / Знакомство',
+      'conn.cta_title': 'Хотите, чтобы ваш проект стал следующей точкой на этой карте?',
+      'conn.cta_text': 'Открыт к заказам и бартерным коллаборациям.',
+      'conn.cta_btn': 'Открыть Telegram',
+      'about.graph_btn': 'Посмотреть связи и пересечения',
       'conn.title': 'Связи и пересечения',
       'conn.subtitle': 'Я включил этот блок, потому что знакомства множат эффективность и помогают закрывать дыры в проектах.',
 
