@@ -786,7 +786,7 @@ a {
   width: 100%;
   height: auto;
   display: block;
-  transition: transform 0.75s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: transform 0.75s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.4s ease;
 }
 
 .stream-card:hover .stream-media-box img {
@@ -1835,6 +1835,130 @@ html[lang="ru"] .unified-about-display {
 
 .stream-media-box::after { display: none !important; content: none; }
 .stream-card:hover .stream-media-box::after { opacity: 0; }
+
+/* Gallery folder badge — stacked folder + count, site palette */
+.stream-gallery-badge {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  z-index: 5;
+  width: 42px;
+  height: 42px;
+  pointer-events: none;
+  user-select: none;
+  opacity: 0;
+  transform: scale(0.82) translateY(6px);
+  transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  transition-delay: calc(var(--d, 0ms) + 180ms);
+}
+
+.stream-card.is-visible .stream-gallery-badge {
+  opacity: 1;
+  transform: scale(1) translateY(0);
+}
+
+.stream-card:not(.is-visible) .stream-gallery-badge {
+  opacity: 0;
+  transform: scale(0.82) translateY(6px);
+}
+
+/* hide when lightbox is open */
+.stream-gallery-badge.is-hidden {
+  opacity: 0 !important;
+  transform: scale(0.75) translateY(4px) !important;
+  transition-delay: 0ms !important;
+}
+
+.stream-gallery-badge.is-returning {
+  transition-delay: 0ms !important;
+}
+
+/* stacked back layer */
+.stream-gallery-badge::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 8px;
+  background: #0c0c0c;
+  transform: translate(3px, 3px);
+}
+
+/* front card */
+.stream-gallery-badge .badge-face {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  background: #f2f0eb;
+  border: 2.5px solid #0c0c0c;
+  box-sizing: border-box;
+}
+
+.stream-gallery-badge svg {
+  width: 26px;
+  height: 26px;
+  display: block;
+}
+
+/* count circle */
+.stream-gallery-badge .gallery-count {
+  position: absolute;
+  bottom: -6px;
+  right: -6px;
+  z-index: 2;
+  min-width: 20px;
+  height: 20px;
+  padding: 0 4px;
+  border-radius: 999px;
+  background: #0c0c0c;
+  color: #f2f0eb;
+  font-family: 'Silkscreen', monospace;
+  font-size: 10px;
+  font-weight: 700;
+  line-height: 1;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid #f2f0eb;
+  box-sizing: border-box;
+}
+
+.stream-card:hover .stream-gallery-badge:not(.is-hidden) {
+  transform: scale(1.07) translateY(0);
+}
+
+@media (max-width: 640px) {
+  .stream-gallery-badge {
+    width: 36px;
+    height: 36px;
+    top: 10px;
+    right: 10px;
+  }
+  .stream-gallery-badge::before {
+    transform: translate(2.5px, 2.5px);
+    border-radius: 7px;
+  }
+  .stream-gallery-badge .badge-face {
+    border-radius: 7px;
+    border-width: 2px;
+  }
+  .stream-gallery-badge svg {
+    width: 22px;
+    height: 22px;
+  }
+  .stream-gallery-badge .gallery-count {
+    min-width: 17px;
+    height: 17px;
+    font-size: 9px;
+    line-height: 1;
+    bottom: -5px;
+    right: -5px;
+  }
+}
 
 .hero-pixel-canvas {
   position: absolute;
