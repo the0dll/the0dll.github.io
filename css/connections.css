@@ -1,0 +1,270 @@
+/* ==========================================================================
+   Connections & Intersections Graph Styles
+   ========================================================================== */
+
+/* --- Section Container & Layout --- */
+.connections-section {
+  background: #0c0c0c;
+  width: 100%;
+  padding: 64px 0 48px;
+  position: relative;
+  overflow: hidden;
+}
+
+.connections-container {
+  position: relative;
+  width: 100%;
+  max-width: 1600px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+/* --- Section Header & Typography --- */
+.connections-header {
+  margin-bottom: 48px;
+}
+
+.connections-title {
+  font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+  font-size: clamp(28px, 5vw, 56px);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  text-transform: uppercase;
+  color: #f2f0eb;
+  line-height: 1;
+  margin-bottom: 16px;
+}
+
+.connections-subtitle {
+  font-family: "Space Mono", monospace;
+  font-size: 13px;
+  color: rgba(242, 240, 235, 0.45);
+  letter-spacing: 0.02em;
+  max-width: 520px;
+  line-height: 1.6;
+}
+
+/* --- Interactive Physics Canvas --- */
+#connections-canvas {
+  display: block;
+  width: 100%;
+  height: 720px;
+  cursor: grab;
+  touch-action: pan-y;
+  user-select: none;
+}
+
+#connections-canvas:active {
+  cursor: grabbing;
+}
+
+/* --- Node Hover Tooltip --- */
+.conn-tooltip {
+  position: fixed;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  background: rgba(12, 12, 12, 0.92);
+  border: 1px solid rgba(242, 240, 235, 0.15);
+  border-radius: 6px;
+  padding: 8px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  opacity: 0;
+  transform: translate(-50%, calc(-100% - 14px));
+  transition: opacity 0.15s ease;
+  z-index: 9999;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+.conn-tooltip.visible {
+  opacity: 1;
+}
+
+.conn-tooltip-name {
+  font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  color: #f2f0eb;
+  white-space: nowrap;
+}
+
+.conn-tooltip-role {
+  font-family: "Space Mono", monospace;
+  font-size: 10px;
+  color: rgba(242, 240, 235, 0.5);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  white-space: nowrap;
+}
+
+/* --- Mobile Responsive Rules --- */
+@media (max-width: 900px) {
+  .connections-header {
+    margin-bottom: 28px;
+  }
+
+  #connections-canvas {
+    height: 560px;
+  }
+}
+
+@media (max-width: 640px) {
+  .connections-section {
+    padding: 40px 0 40px;
+  }
+
+  .connections-container {
+    padding: 0 16px;
+  }
+
+  .connections-title {
+    font-size: clamp(24px, 8vw, 36px);
+  }
+
+  .connections-subtitle {
+    font-size: 12px;
+  }
+
+  #connections-canvas {
+    height: clamp(460px, 68vh, 600px);
+  }
+}
+
+/* --- Legend --- */
+.conn-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px 40px;
+  margin-top: 24px;
+  font-family: "Space Mono", monospace;
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: rgba(242, 240, 235, 0.55);
+}
+
+.conn-legend-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 24px;
+}
+
+.conn-legend-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.conn-legend-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.conn-legend-line {
+  flex-shrink: 0;
+}
+
+/* --- CTA below graph --- */
+.conn-cta {
+  margin-top: 56px;
+  padding-top: 40px;
+  border-top: 1px solid rgba(242, 240, 235, 0.1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 12px;
+}
+
+.conn-cta-title {
+  font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+  font-size: clamp(20px, 3vw, 34px);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: #f2f0eb;
+  line-height: 1.15;
+  max-width: 760px;
+}
+
+.conn-cta-text {
+  font-family: "Space Mono", monospace;
+  font-size: 13px;
+  color: rgba(242, 240, 235, 0.45);
+  letter-spacing: 0.02em;
+  line-height: 1.6;
+}
+
+.conn-cta-btn {
+  margin-top: 12px;
+}
+
+/* --- About section graph button --- */
+.about-graph-cta {
+  margin-top: 28px;
+}
+
+.about-graph-cta .community-btn {
+  white-space: nowrap;
+  color: #0c0c0c;
+  border-color: #0c0c0c;
+  background: transparent;
+}
+
+.about-graph-cta .community-btn:hover {
+  background: #0c0c0c;
+  color: #f2f0eb;
+}
+
+@media (max-width: 640px) {
+  .conn-legend {
+    font-size: 10px;
+    gap: 12px 24px;
+  }
+
+  .conn-cta {
+    margin-top: 40px;
+    padding-top: 28px;
+  }
+}
+
+@media (max-width: 640px) {
+  .about-graph-cta .community-btn {
+    white-space: normal;
+    text-align: center;
+    justify-content: center;
+    line-height: 1.3;
+    border-radius: 28px;
+  }
+  .conn-cta-title { overflow-wrap: anywhere; }
+}
+
+/* --- Pinch-zoom reset button (touch devices; shown only while zoomed) --- */
+.conn-zoom-reset {
+  position: absolute;
+  right: 16px;
+  z-index: 3;
+  min-width: 44px;
+  min-height: 44px;
+  padding: 0 12px;
+  border: 1.5px solid rgba(242, 240, 235, 0.4);
+  border-radius: 999px;
+  background: rgba(12, 12, 12, 0.8);
+  color: #f2f0eb;
+  font-family: "Space Mono", monospace;
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.conn-zoom-reset.visible {
+  opacity: 1;
+  pointer-events: auto;
+}

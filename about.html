@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>about — the0dll'</title>
+  <meta name="description" content="About the0dll — bespoke Minecraft skin artist, real-time graphics designer & New Era creative.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Silkscreen:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 8 8%27 shape-rendering=%27crispEdges%27%3E%3Crect width=%278%27 height=%278%27 fill=%27%230c0c0c%27/%3E%3Crect x=%272%27 y=%272%27 width=%274%27 height=%274%27 fill=%27%23ff4a1c%27/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/connections.css">
+</head>
+<body data-i18n-title="about.page_title">
+
+  <!-- Scroll progress bar & custom cursor canvas -->
+  <div id="scroll-progress-bar" aria-hidden="true"></div>
+
+  <canvas id="cursor-canvas" aria-hidden="true"></canvas>
+
+  <!-- Fixed Header & Navigation -->
+  <header class="site-header">
+    <a href="index.html" class="brand-logo">
+      <span>the0dll</span><span class="accent-tick" aria-hidden="true"></span>
+    </a>
+
+    <div class="header-right" id="site-menu">
+      <nav class="site-nav" aria-label="Main">
+        <a href="index.html" class="nav-link" data-i18n="nav.home">HOME</a>
+        <a href="works.html" class="nav-link" data-i18n="nav.works">WORKS</a>
+        <a href="about.html" class="nav-link" data-i18n="nav.about">ABOUT</a>
+        <a href="#contacts" class="nav-link" data-i18n="nav.contacts">CONTACTS</a>
+      </nav>
+      <div class="lang-switch">
+        <button type="button" class="lang-btn" data-lang="en">EN</button>
+        <button type="button" class="lang-btn" data-lang="ru">RU</button>
+      </div>
+    </div>
+    <button type="button" class="nav-toggle" id="nav-toggle" aria-expanded="false" aria-controls="site-menu" aria-label="Menu" data-i18n-aria="nav.menu">
+      <span class="nav-toggle-bar" aria-hidden="true"></span>
+      <span class="nav-toggle-bar" aria-hidden="true"></span>
+    </button>
+  </header>
+
+  <!-- Unified Animated Display Runner 'about' (descends from hero, glides behind photos) -->
+  <div class="unified-about-display" id="unified-about" aria-hidden="true" data-i18n="about.runner">about</div>
+
+  <main class="about-page-content">
+
+    <!-- Section 1: Hero Intro (Meta information & Typewriter bio) -->
+    <section class="about-hero-section">
+      <div class="about-intro-grid">
+        <div class="intro-left-col">
+          <div class="intro-meta">
+<div class="meta-item">
+              <span class="meta-label"><span data-i18n="about.status_label">[ STATUS ]</span></span>
+              <span class="meta-val"><span class="status-indicator"></span> <span data-i18n="about.status_val">OPEN FOR COMMISSIONS</span></span>
+            </div>
+
+            <div class="meta-item">
+              <span class="meta-label"><span data-i18n="about.price_label">[ PRICE ]</span></span>
+              <span class="meta-val" data-i18n="about.price_val">FROM 600 ₽ / SKIN</span>
+            </div>
+
+            <div class="meta-item">
+              <span class="meta-label"><span data-i18n="about.location_label">[ LOCATION ]</span></span>
+              <span class="meta-val"><span data-i18n="about.location_val">EKATERINBURG, YEKT (UTC+5)</span></span>
+            </div>
+
+            <div class="meta-item">
+              <span class="meta-label"><span data-i18n="about.roles_label">[ ROLES ]</span></span>
+              <span class="meta-val"><span data-i18n="about.roles_val">SKIN DESIGNER · REAL-TIME ARTIST · NEW ERA CREATIVE</span></span>
+            </div>
+          </div>
+
+          <div class="about-graph-cta">
+            <a href="#connections-section" class="community-btn" data-scroll-to-connections><span data-i18n="about.graph_btn">Посмотреть связи и пересечения</span></a>
+          </div>
+
+          <div class="hero-about-anchor" id="hero-about-anchor" aria-hidden="true"></div>
+        </div>
+
+        <div class="typewriter-block">
+          <p class="typewriter-text" data-i18n-html="about.intro_html"></p>
+          <div class="hero-dash-divider" aria-hidden="true"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 2: Pinned Process Collage (Sticky stage with floating WIP cards) -->
+    <section class="process-pinned-track" id="process-track">
+      <div class="process-sticky-stage" id="process-stage">
+        <div class="process-collage-cluster">
+          <article class="collage-card card-kot1" data-shot="1">
+            <img src="assets/assets2/kot1.png" alt="Creative Workspace" width="1280" height="853" loading="lazy">
+          </article>
+
+          <article class="collage-card card-wip1" data-shot="2">
+            <img src="assets/assets2/1.png" alt="Skin Texturing WIP" width="720" height="1280" loading="lazy">
+          </article>
+
+          <article class="collage-card card-render" data-shot="3">
+            <img src="assets/assets2/render.png" alt="3D Lighting & Cloud" width="1000" height="800" loading="lazy">
+          </article>
+
+          <article class="collage-card card-video" data-shot="4">
+            <video src="assets/assets2/video.mp4" autoplay loop muted playsinline></video>
+          </article>
+
+          <article class="collage-card card-detail2" data-shot="5">
+            <img src="assets/assets2/2.png" alt="Micro-shading Process" width="720" height="1280" loading="lazy">
+          </article>
+
+          <article class="collage-card card-logo" data-shot="6">
+            <img src="assets/assets2/logo.png" alt="the0dll Glyph" width="1000" height="1000" loading="lazy">
+          </article>
+
+          <article class="collage-card card-layers3" data-shot="7">
+            <img src="assets/assets2/3.png" alt="Skin Layer Depth" width="1080" height="1894" loading="lazy">
+          </article>
+
+          <article class="collage-card card-kot" data-shot="8">
+            <img src="assets/assets2/kot.png" alt="Atmospheric Frame" width="1280" height="853" loading="lazy">
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 3: Work Philosophy & Approach (Dynamic blur scroll reveal) -->
+    <section class="work-manifesto-section">
+      <div class="manifesto-label">[ PHILOSOPHY &amp; APPROACH ]</div>
+      <p class="manifesto-blur-text" id="manifesto-text" data-i18n-html="about.work_html"></p>
+    </section>
+
+    <!-- Section 4: Specializing In (100vw wipe bars with hover scramble) -->
+    <section class="specializing-section" id="specializing-section">
+      <div class="specializing-inner">
+        <div class="spec-badge-header" data-i18n="about.specializing">( SPECIALIZING IN )</div>
+
+        <div class="specializing-list">
+          <div class="spec-row" data-scramble="MINECRAFT SKINS &amp; TEXTURING">
+            <div class="spec-black-fill"></div>
+            <div class="spec-row-content">
+              <span class="spec-num">01 /</span>
+              <span class="spec-title" data-i18n="about.spec1">MINECRAFT SKINS &amp; TEXTURING</span>
+            </div>
+          </div>
+
+          <div class="spec-row" data-scramble="REAL-TIME GRAPHICS &amp; TOUCHDESIGNER">
+            <div class="spec-black-fill"></div>
+            <div class="spec-row-content">
+              <span class="spec-num">02 /</span>
+              <span class="spec-title" data-i18n="about.spec2">REAL-TIME GRAPHICS &amp; TOUCHDESIGNER</span>
+            </div>
+          </div>
+
+          <div class="spec-row" data-scramble="BRAND &amp; GRAPHIC DESIGN">
+            <div class="spec-black-fill"></div>
+            <div class="spec-row-content">
+              <span class="spec-num">03 /</span>
+              <span class="spec-title" data-i18n="about.spec3">BRAND &amp; GRAPHIC DESIGN</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 5: Community & Blog (Giant word header & links) -->
+    <section class="community-section" id="community-section">
+      <div class="community-container">
+        <div class="community-header">
+          <div class="community-word-giant" id="glitch-community" data-scramble="community" data-i18n="about.community">community</div>
+        </div>
+        <div class="community-body-row">
+          <div class="community-tag"><span data-i18n="about.community_tag">( COMMUNITY )</span></div>
+          <div class="community-content">
+            <p class="community-blur-text" id="community-text" data-i18n-html="about.community_html">
+              <span class="comm-token">Большая</span> <span class="comm-token">часть</span> <span class="comm-token">моей</span> <span class="comm-token">работы</span> <span class="comm-token">связана</span> <span class="comm-token">с</span> <span class="comm-token comm-badge">Minecraft</span> <span class="comm-token">скинмейкингом:</span> <span class="comm-token">от</span> <span class="comm-token">создания</span> <span class="comm-token">персонажей</span> <span class="comm-token">и</span> <span class="comm-token">текстурирования</span> <span class="comm-token">до</span> <span class="comm-token">частных</span> <span class="comm-token">заказов</span> <span class="comm-token">и</span> <span class="comm-token">работы</span> <span class="comm-token">со</span> <span class="comm-token">студиями.</span> <span class="comm-token">Я</span> <span class="comm-token">показываю</span> <span class="comm-token">готовые</span> <span class="comm-token">скины,</span> <span class="comm-token">ранние</span> <span class="comm-token">концепты,</span> <span class="comm-token">эксперименты</span> <span class="comm-token">и</span> <span class="comm-token">бэкстейдж</span> <span class="comm-token">процесса</span> <span class="comm-token">вместе</span> <span class="comm-token">с</span> <span class="comm-token">сообществом</span> <span class="comm-token">через</span> <span class="comm-token comm-badge">Telegram,</span> <span class="comm-token comm-badge">TikTok,</span> <span class="comm-token">и</span> <span class="comm-token comm-badge">Discord.</span> <span class="comm-token">В</span> <span class="comm-token">центре</span> <span class="comm-token">всегда</span> <span class="comm-token">остаются</span> <span class="comm-token">Minecraft,</span> <span class="comm-token">характер,</span> <span class="comm-token">детали</span> <span class="comm-token">и</span> <span class="comm-token">процесс</span> <span class="comm-token">превращения</span> <span class="comm-token">идеи</span> <span class="comm-token">в</span> <span class="comm-token">готового</span> <span class="comm-token">персонажа.</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 6: Interactive Connections & Intersections Graph Canvas -->
+    <section class="connections-section" id="connections-section" aria-label="Connections & Intersections" data-i18n-aria="conn.title">
+      <div class="connections-container">
+        <div class="connections-header">
+          <div class="connections-title" data-i18n="conn.title">Connections &amp; Intersections</div>
+          <div class="connections-subtitle" data-i18n="conn.subtitle">I included this block because connections multiply efficiency and help close gaps in projects.</div>
+        </div>
+        <canvas id="connections-canvas" aria-hidden="true"></canvas>
+        <div class="conn-tooltip" id="conn-tooltip" role="tooltip" aria-hidden="true">
+          <span class="conn-tooltip-name"></span>
+          <span class="conn-tooltip-role"></span>
+        </div>
+        <div class="conn-legend" aria-label="Legend">
+          <div class="conn-legend-group">
+            <span class="conn-legend-item"><span class="conn-legend-dot" style="background:#f2f0eb"></span><span data-i18n="conn.legend_me">Me</span></span>
+            <span class="conn-legend-item"><span class="conn-legend-dot" style="background:#6b8cff"></span><span data-i18n="conn.legend_people">People</span></span>
+            <span class="conn-legend-item"><span class="conn-legend-dot" style="background:#ff7c5c"></span><span data-i18n="conn.legend_projects">Projects / Studios</span></span>
+            <span class="conn-legend-item"><span class="conn-legend-dot" style="background:#5cdcb1"></span><span data-i18n="conn.legend_community">Community</span></span>
+          </div>
+          <div class="conn-legend-group">
+            <span class="conn-legend-item"><svg class="conn-legend-line" width="32" height="6" viewBox="0 0 32 6" aria-hidden="true"><line x1="0" y1="3" x2="32" y2="3" stroke="rgba(242,240,235,0.55)" stroke-width="1.5"/></svg><span data-i18n="conn.legend_solid">Work / Direct Project</span></span>
+            <span class="conn-legend-item"><svg class="conn-legend-line" width="32" height="6" viewBox="0 0 32 6" aria-hidden="true"><line x1="0" y1="3" x2="32" y2="3" stroke="rgba(242,240,235,0.3)" stroke-width="1" stroke-dasharray="4 5"/></svg><span data-i18n="conn.legend_dashed">Community / Acquaintance</span></span>
+          </div>
+        </div>
+        <div class="conn-cta">
+          <div class="conn-cta-title" data-i18n="conn.cta_title">Хотите, чтобы ваш проект стал следующей точкой на этой карте?</div>
+          <div class="conn-cta-text" data-i18n="conn.cta_text">Открыт к заказам и бартерным коллаборациям.</div>
+          <a href="https://t.me/ThDaniil" target="_blank" rel="noopener noreferrer" class="community-btn conn-cta-btn" data-i18n-href="conn.cta_href"><span data-i18n="conn.cta_btn">Открыть Telegram</span></a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Contacts Panel: Social links -->
+  <section class="contacts-panel-section" id="contacts">
+    <div class="contacts-panel-inner">
+      <div class="contacts-icons-row" role="list">
+        <a href="https://t.me/the0dll" target="_blank" rel="noopener noreferrer" class="contact-icon-link" aria-label="Telegram" role="listitem">
+          <svg viewBox="0 0 24 24" fill="currentColor" class="contact-icon-svg" width="36" height="36">
+            <path d="M20.665 3.717l-17.73 6.837c-1.21.486-1.203 1.161-.222 1.462l4.552 1.42 10.532-6.645c.498-.303.953-.14.579.192l-8.533 7.701h-.002l-.313 4.674c.458 0 .66-.21.917-.46l2.203-2.14 4.58 3.385c.844.464 1.452.225 1.663-.782l3.005-14.159c.309-1.238-.472-1.8-1.464-1.488z"/>
+          </svg>
+        </a>
+
+        <a href="https://www.tiktok.com/@the0dlll" target="_blank" rel="noopener noreferrer" class="contact-icon-link" aria-label="TikTok" role="listitem">
+          <svg viewBox="0 0 24 24" fill="currentColor" class="contact-icon-svg" width="36" height="36">
+            <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64c.298-.002.595.042.88.13V9.4a6.33 6.33 0 0 0-1-.08A6.34 6.34 0 0 0 3 15.66a6.34 6.34 0 0 0 10.82 4.48 6.3 6.3 0 0 0 1.93-4.47V8.5a8.28 8.28 0 0 0 4.84 1.55v-3.36h-.001z"/>
+          </svg>
+        </a>
+
+        <a href="https://discord.com/users/839165605630181477" target="_blank" rel="noopener noreferrer" class="contact-icon-link" aria-label="Discord" role="listitem">
+          <svg viewBox="0 0 24 24" fill="currentColor" class="contact-icon-svg" width="36" height="36">
+            <path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.462-.63.874-1.295 1.226-1.994.021-.041.001-.09-.041-.106a13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.929 1.793 8.18 1.793 12.061 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.894.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.028zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z"/>
+          </svg>
+        </a>
+
+        <a href="https://x.com/0d_ll" target="_blank" rel="noopener noreferrer" class="contact-icon-link" aria-label="X (Twitter)" role="listitem">
+          <svg viewBox="0 0 24 24" fill="currentColor" class="contact-icon-svg" width="36" height="36">
+            <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+          </svg>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Scripts -->
+  <script src="js/cursor.js"></script>
+  <script src="js/i18n.js"></script>
+  <script src="js/main.js"></script>
+  <script src="js/transition.js"></script>
+  <script src="js/glitch.js"></script>
+  <script src="js/about.js"></script>
+  <script src="js/connections.js"></script>
+</body>
+</html>
